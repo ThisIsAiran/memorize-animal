@@ -1,0 +1,156 @@
+	<!DOCTYPE html>
+<html>
+<head>
+	<title>basic music player</title>
+    <style type="text/css">
+    body{
+    	    width: cover;
+    	    height: cover;
+    		background: url("images/background.jpg");
+    		background-size: 100% 800px;
+    		display: flex;
+    		flex-direction: column;
+    		justify-content: center;
+    		align-items: center;
+    	}
+        .image{
+        	
+        	width: 600px;
+        	height: 400px;
+        	border: 3px solid black;
+        	border-radius: 6px;
+        	box-shadow: 0 0 5px red;
+        	margin-top: 25px;
+        	background:url("images/camera2.jpg");
+        	background-size: 600px 400px;
+        }
+    	.keys{
+    		width: 100%;
+    		height: 100%;
+    		display: flex;;
+    		flex-direction: row;
+    		justify-content: center;
+    		margin-top: 100px;
+             }
+        .key{
+               width: 100px;
+               height: 70px;
+               border: 2px solid black;
+               margin-left: 30px;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+               text-align: center;
+               color: white;
+               box-shadow: 0 0 5px red;
+               border-radius: 5px;
+               transition: all .1s;
+            }
+            kbd{
+            	font-size: 30px;
+            }
+            .sound{
+            	font-size: .8rem;
+            	text-transform: uppercase;
+                 color: #ffc600;
+                 letter-spacing: 1px;
+            }
+            .playing{
+            	transform: scale(1.1);
+            	border-color: #ffc600;
+            	box-shadow: 0 0 10px #ffc600;
+            }
+            img{
+            	display: none;
+            	width: 100%;
+            	height:100%;
+            }
+    	
+    </style>
+</head>
+<body>
+    <div class="image">
+    	<img data-key = "65" src="images/alligator.jpg" class="image1">
+    	<img data-key = "83" src="images/snakes.jpg" class="image1">
+    	<img data-key = "68" src="images/dog.jpg" class="image1">
+    	<img data-key = "70" src="images/frog.jpg" class="image1" >
+    	<img data-key = "71" src="images/goat.jpg" class="image1">
+    	<img data-key = "72" src="images/bees.jpg" class="image1">
+    	<img data-key = "74" src="images/jackal.jpg" class="image1">
+    	<img data-key = "75" src="images/kangaroo.jpg" class="image1">
+    	<img data-key = "76" src="images/lion.jpg" class="image1">
+    </div>
+    <div class="keys">
+    <div data-key = "65" class="key">
+     <kbd>A</kbd>
+     <span class="sound">Alligator</span>
+    </div>
+      <div data-key = "83" class="key">
+      <kbd>S</kbd>
+     <span class="sound">Snake</span>
+    </div>
+      <div data-key = "68" class="key">
+       <kbd>D</kbd>
+     <span class="sound">Dog</span>
+    </div>
+      <div data-key = "70" class="key">
+       <kbd>F</kbd>
+     <span class="sound">Frog</span>
+    </div>
+      <div data-key = "71" class="key">
+       <kbd>G</kbd>
+     <span class="sound">Goat</span>
+    </div>
+      <div data-key = "72" class="key">
+       <kbd>H</kbd>
+     <span class="sound">Honeybee</span>
+    </div>
+      <div data-key = "74" class="key">
+       <kbd>J</kbd>
+     <span class="sound">Jackal</span>
+    </div>
+      <div data-key = "75" class="key">
+       <kbd>K</kbd>
+     <span class="sound">Kangaroo</span>
+    </div>
+      <div data-key = "76" class="key">
+       <kbd>L</kbd>
+     <span class="sound">lion</span>
+    </div>
+    </div>
+    </div>
+    <audio data-key = "65" src="mp3music/baligator.mp3"></audio>
+    <audio data-key = "83" src="mp3music/snake.mp3"></audio>
+    <audio data-key = "68" src="mp3music/dog.mp3"></audio>
+    <audio data-key = "70" src="mp3music/frog.mp3"></audio>
+    <audio data-key = "71" src="mp3music/goat.mp3"></audio>
+    <audio data-key = "72" src="mp3music/bee.mp3"></audio>
+    <audio data-key = "74" src="mp3music/jackal.mp3"></audio>
+    <audio data-key = "75" src="mp3music/kangaroo.mp3"></audio>
+    <audio data-key = "76" src="mp3music/lion.mp3"></audio>
+    <script>
+
+ window.addEventListener('keydown',function (e) {
+ 	  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+ 	  const key = document.querySelector(`.key[data-key = "${e.keyCode}"]`);
+       const image1 = document.querySelector(`.image1[data-key = "${e.keyCode}"]`);
+       image1.style.display = "block";
+ 	   if(!audio) return;
+ 	   if(!key) return;
+ 	     key.classList.add('playing');
+ 	    audio.currentTime = 0;
+ 	    audio.play();
+ 	    setInterval(function(){  image1.style.display = "none"; }, audio.duration*1000);
+	    
+ });
+     function removeTransition(e)
+     {
+     	if(e.propertyName!=='transform')return;
+     	this.classList.remove('playing');
+    	
+     }
+     const keys = document.querySelectorAll(".key");
+     keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    </script>
+</body>
+</html>
